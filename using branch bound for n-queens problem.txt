@@ -1,0 +1,58 @@
+def is_safe(arr, x, y, n):
+
+    # Checking if there is any queen in the same column
+    for row in range(x):
+        if arr[row][y] == 1:
+            return False
+
+    # Checking if there is any queen in the upper-left diagonal
+    row = x
+    col = y
+    while row >= 0 and col >= 0:
+        if arr[row][col] == 1:
+            return False
+        row -= 1
+        col -= 1
+
+    # Checking if there is any queen in the upper-right diagonal
+    row = x
+    col = y
+    while row >= 0 and col < n:
+        if arr[row][col] == 1:
+            return False
+        row -= 1
+        col += 1
+
+    # If no conflicting queen is found, the position is safe
+    return True
+
+
+def n_queen(arr, x, n):
+    if x >= n:
+        return True
+
+    for col in range(n):
+        if is_safe(arr, x, col, n):
+            arr[x][col] = 1
+            if n_queen(arr, x + 1, n):
+                return True
+            arr[x][col] = 0  # backtracking
+
+    return False
+
+
+def main():
+    n = int(input("Enter the number of queens: "))
+
+    # Creating the chessboard
+    arr = [[0] * n for _ in range(n)]
+
+    if n_queen(arr, 0, n):
+        print("Solution exists. The positions of queens are:")
+        for row in arr:
+            print(row)
+    else:
+        print("Solution does not exist.")
+
+if _name_ == "_main_":
+    main()

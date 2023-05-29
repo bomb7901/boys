@@ -1,0 +1,30 @@
+ class ChatBot:
+
+    def __init__(self):
+         self.greetings = ["hello", "hi", "hey", "greetings"]
+         self.goodbyes = ["bye", "goodbye", "see you"]
+         self.thank_you = ["thank you", "thanks"]
+         self.default_response = "I'm sorry, I didn't understand. Could you please rephrase?"
+    
+    
+    def generate_response(self, user_input):
+        if user_input.lower() in self.greetings:
+              return "Hello! How can I assist you today?"
+
+        elif user_input.lower() in self.goodbyes:
+             return "Goodbye! Have a great day!"
+ 
+        elif any(word in user_input.lower() for word in
+self.thank_you):
+          return "You're welcome! If you have any more questions, feel free to ask."
+ 
+        else:
+            return self.default_response
+
+
+# Example usage:
+bot = ChatBot()
+while True:
+ user_input = input("User: ")
+ response = bot.generate_response(user_input)
+ print("Bot:", response)
